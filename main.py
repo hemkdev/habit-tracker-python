@@ -25,33 +25,53 @@ def listar_habitos(habitos):
 def marcar_habitos(habitos, nome):
     hoje = str(date.today())
     if nome in habitos:
-        habitos[nome] = []
-        print(f"Hábito '{nome}' adicionado!")
+        if hoje not in habitos[nome]:
+            habitos[nome].append(hoje)
+            print(f"Hábito '{nome}' marcado como concluído para hoje!")
+        else:
+            print(f"Hábito '{nome}' já foi marcado como concluído hoje!")
+    else:
+        print("Hábito não encontrado!")
+
+def ver_progresso(habitos, nome):
+    if nome in habitos:
+        dias_concluidos = habitos[nome]
+        print(f"Progresso do hábito '{nome}': {len(dias_concluidos)} dias concluídos.")
+    else:
+        print("Hábito não encontrado!")
 
 
 # -- PROGRAMA PRINCIPAL -- #
-print("Bem-vindo ao Rastreador de Hábitos!")
-print("1. Adicionar hábito")
-print("2. Listar hábitos") 
-print("3. Marcar hábito como concluído")
-print("4. Ver progresso")
-print("5. Sair")
+habitos = {}  # Inicializa o dicionário de hábitos
+while True:
+    print("------------------------------------------------")
+    print("Bem-vindo ao Rastreador de Hábitos!")
+    print("1. Adicionar hábito")
+    print("2. Listar hábitos") 
+    print("3. Marcar hábito como concluído")
+    print("4. Ver progresso")
+    print("5. Limpar tela")
+    print("6. Sair")
 
-escolha = int(input("Escolha uma opção: "))
+    escolha = int(input("Escolha uma opção: "))
 
-if escolha == 1:
-    nome = input("Digite o nome do hábito que deseja adicionar: ")
-    adicionar_habito(nome)
-elif escolha == 2:
-    listar_habitos()
-elif escolha == 3:
-    nome = input("Digite o nome do hábito que deseja marcar como concluido: ")
-    marcar_habitos(nome)
-elif escolha == 4:
-    nome = input("Digite o nome do hábito que deseja ver o progresso: ")
-    ver_progresso(nome)
-elif escolha == 5:
-    print("Progresso salvo. Até mais!")
-    break
-else:
-    print("Opção inválida, tente novamente!")
+    if escolha == 1:
+        nome = str(input("Digite o nome do hábito que deseja adicionar: "))
+        adicionar_habito(habitos, nome)
+        print("")
+    elif escolha == 2:
+        listar_habitos(habitos)
+    elif escolha == 3:
+        nome = input("Digite o nome do hábito que deseja marcar como concluido: ")
+        marcar_habitos(habitos, nome)
+    elif escolha == 4:
+        nome = input("Digite o nome do hábito que deseja ver o progresso: ")
+        ver_progresso(habitos, nome)
+    elif escolha == 5:
+        os.system('cls')
+    elif escolha == 6:
+        print("Progresso salvo. Até mais!")
+        break
+    else:
+        print("Opção inválida, tente novamente!")
+    
