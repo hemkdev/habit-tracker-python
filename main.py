@@ -40,10 +40,23 @@ def ver_progresso(habitos, nome):
     else:
         print("Hábito não encontrado!")
 
+def carregar_dados():
+    if os.path.exists("habitos.json"):
+        with open("habitos.json", "r") as arquivo:
+            return json.load(arquivo)
+    return {}
 
-# -- PROGRAMA PRINCIPAL -- #
+def salvar_dados(habitos):
+    with open("habitos.json", "w") as arquivo:
+        json.dump(habitos, arquivo)
+
+
 habitos = {}  # Inicializa o dicionário de hábitos
-while True:
+
+
+# -- PROGRAMA PRINCIPAL -- 
+
+while True: 
     print("------------------------------------------------")
     print("Bem-vindo ao Rastreador de Hábitos!")
     print("1. Adicionar hábito")
@@ -70,6 +83,7 @@ while True:
     elif escolha == 5:
         os.system('cls')
     elif escolha == 6:
+        salvar_dados(habitos)
         print("Progresso salvo. Até mais!")
         break
     else:
